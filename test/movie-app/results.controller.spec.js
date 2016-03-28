@@ -18,13 +18,17 @@ describe('Results Controller', function(){
     beforeEach(module('omdb'));
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$location_, _omdbApi_){
+    beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$location_, _omdbApi_, _$httpBackend_){
         $controller = _$controller_;
         $q = _$q_;
         $rootScope = _$rootScope_;
         omdbApi = _omdbApi_;
         $location = _$location_;
         $scope = {};
+
+        _$httpBackend_.when('GET', function(name) {
+            return name.indexOf('.html') !== -1;
+        }).respond(200);
     }));
 
     it('Should load search results', function(){

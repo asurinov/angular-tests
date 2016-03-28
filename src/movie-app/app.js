@@ -1,9 +1,12 @@
 /**
  * Created by Machete on 27.03.2016.
  */
-angular.module('movieApp', ['ui.bootstrap', 'ngRoute', 'omdb'])
+angular.module('movieApp', ['ui.bootstrap', 'ngRoute', 'omdb', 'movieCore'])
     .config(function($routeProvider){
-        $routeProvider.when('/results', {
+        $routeProvider.when('/', {
+            templateUrl: 'movie-app/home.html',
+            controller: 'HomeController'
+        }).when('/results', {
             templateUrl: 'movie-app/results.html',
             controller: 'ResultsController'
         }).otherwise({
