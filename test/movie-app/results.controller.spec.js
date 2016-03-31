@@ -14,17 +14,24 @@ describe('Results Controller', function(){
     var $scope;
     var $location;
     var omdbApi;
+    var $exceptionHandler;
 
     beforeEach(module('omdb'));
     beforeEach(module('movieApp'));
 
-    beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$location_, _omdbApi_, _$httpBackend_){
+    beforeEach(module(function($exceptionHandlerProvider){
+        $exceptionHandlerProvider.mode('log');
+    }));
+
+    beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$location_, _omdbApi_, _$httpBackend_, _$exceptionHandler_){
         $controller = _$controller_;
         $q = _$q_;
         $rootScope = _$rootScope_;
         omdbApi = _omdbApi_;
         $location = _$location_;
+        $exceptionHandler = _$exceptionHandler_;
         $scope = {};
+
 
         _$httpBackend_.when('GET', function(name) {
             return name.indexOf('.html') !== -1;
@@ -48,12 +55,13 @@ describe('Results Controller', function(){
         spyOn(omdbApi, 'search').and.callFake(function(){
             var deferred = $q.defer();
             //deferred.resolve(results);
-            deferred.reject();
+            deferred.reject('Something went wrong!');
             return deferred.promise;
         });
         $location.search('q', 'star wars');
         $controller('ResultsController', { $scope: $scope });
         $rootScope.$apply();
-        expect($scope.errorMessage).toBe('Something went wrong!');
+
+        expect($exceptionHandler.errors).toEqual(['Something went wrong!']);
     });
 });

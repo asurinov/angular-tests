@@ -21,7 +21,7 @@ describe('MovieResultDirective', function(){
             '<p class="ng-binding">Qwerty</p>',
             '<p class="ng-binding"><strong>Director:</strong> George Lucas</p>',
             '<p class="ng-binding"><strong>Actor:</strong> Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing</p>',
-            '<p class="ng-binding"><strong>Released:</strong> 25 May 1977</p>',
+            '<p class="ng-binding"><strong>Released:</strong> 25 May 1977 (38 years ago)</p>',
             '<p class="ng-binding"><strong>Genre:</strong> Action, Adventure, Fantasy</p>',
         '</div>',
     ].join('');
